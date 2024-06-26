@@ -38,7 +38,7 @@ N = int(input())
 
 while (N > 0):
     A, B = input().split()
-    if B < A:
+    if B < A or (B == "0" or A == "0"):
         print('nao encaixa')
         N -= 1
         continue
@@ -54,3 +54,20 @@ while (N > 0):
         print('nao encaixa')
 
     N -= 1
+
+# ===========================================
+qt = int(input())
+v = []
+
+for i in range(qt):
+
+    v = input().split(" ")
+    a = v[0]
+    b = v[1]
+
+    if len(b) > len(a):
+        print("nao encaixa")
+    elif a.endswith(b):
+        print("encaixa")
+    else:
+        print("nao encaixa")
