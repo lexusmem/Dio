@@ -1,0 +1,4 @@
+# instalando bibliotecas
+
+import sqlalchemy
+
