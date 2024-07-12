@@ -5,7 +5,8 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import ForeignKey
-
+from sqlalchemy import create_engine
+from sqlalchemy import inspect
 
 Base = declarative_base()
 
@@ -42,3 +43,21 @@ print(User.__table__)
 
 print(Address.__tablename__)
 print(Address.__table__)
+
+# conexão com o banco de dados
+engine = create_engine("sqlite://")
+
+# Criando as classes como tabelas no banco de dados
+Base.metadata.create_all(engine)
+
+inspetor_engine = inspect(engine)
+
+print(inspetor_engine.has_table("user_account"))
+print(inspetor_engine.has_table("address"))
+
+print(inspetor_engine.get_table_names())
+print(inspetor_engine.get_columns("address"))
+print(inspetor_engine.get_columns("user_account"))
+
+# nome do banco de dados
+print(inspetor_engine.default_schema_name)
