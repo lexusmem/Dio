@@ -64,23 +64,23 @@ print(inspetor_engine.get_columns("user_account"))
 print(inspetor_engine.default_schema_name)
 
 with Session(engine) as session:
-        alex = User(
-            name='alex',
-            fullname='alex silva de sousa',
-            address=[Address(email_address='lexusmem@gmail.com')]
-        )
+    alex = User(
+        name='alex',
+        fullname='alex silva de sousa',
+        address=[Address(email_address='lexusmem@gmail.com')]
+    )
 
-        laura = User(
-            name='laura',
-            fullname='laura silva de sousa',
-            address=[Address(email_address='laura@gmail.com'),
-                     Address(email_address='laura2@gmail.com')]
-        )
+    laura = User(
+        name='laura',
+        fullname='laura silva de sousa',
+        address=[Address(email_address='laura@gmail.com'),
+                 Address(email_address='laura2@gmail.com')]
+    )
 
-        pamela = User(name='alex', fullname='alex silva de sousa')
+    pamela = User(name='alex', fullname='alex silva de sousa')
 
-        # enviando para o BD(persistência de dados)
-        session.add_all([alex, laura, pamela])
+    # enviando para o BD(persistência de dados)
+    session.add_all([alex, laura, pamela])
 
-        # commitando tuplas digitadas no banco10_Criando uma Sessão para Persistir dados no SQlite.py
-        session.commit()
+    # commitando tuplas digitadas no banco10_Criando uma Sessão para Persistir dados no SQlite.py
+    session.commit()
