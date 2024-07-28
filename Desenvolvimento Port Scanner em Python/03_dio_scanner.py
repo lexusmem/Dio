@@ -1,4 +1,3 @@
-import pprint
 import nmap
 
 scanner = nmap.PortScanner()
