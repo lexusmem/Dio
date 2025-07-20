@@ -35,7 +35,7 @@ print(list(df.columns))
 # tipo de dados de cada coluna
 print(df.dtypes)
 
-# vizualizar as ultimas linhas do df
+# visualizar as ultimas linhas do df
 print(df.tail())
 
 # descrição do conjunto de dados
