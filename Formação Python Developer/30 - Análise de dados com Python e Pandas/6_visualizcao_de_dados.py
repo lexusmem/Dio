@@ -50,26 +50,72 @@ print(df['LojaID'].value_counts(ascending=False))
 # localizando vendas com um determinado número de ID
 print(df.loc[df['LojaID'] == 1003])
 
-# grafico de barras vertical
-df['LojaID'].value_counts(ascending=False).plot.bar()
-plt.show()
+# gráfico de barras vertical
+# df['LojaID'].value_counts(ascending=False).plot.bar()
+# plt.show()
 
 # grafico barras horizontais
-df['LojaID'].value_counts(ascending=True).plot.barh()
-# apresentando o grafico
-plt.show()
+# df['LojaID'].value_counts(ascending=True).plot.barh()
+# plt.show()  # apresentando o gráfico
 
-# grafico pizza
-df.groupby(df['Ano_Venda'])['Receita'].sum().plot.pie()
-plt.show()
+# gráfico pizza
+# df.groupby(df['Ano_Venda'])['Receita'].sum().plot.pie()
+# plt.show()
 
 print(df['Cidade'].value_counts())
 
 # adicionando um titulo e alterando o nome dos eixos
-df['Cidade'].value_counts().plot.bar(title='Total Vendas por Cidade')
-plt.xlabel('Cidade')
-plt.ylabel('Total Vendas')
+# x - eixo horizonte
+# y - eixo vertical
+# df['Cidade'].value_counts().plot.bar(title='Total Vendas por Cidade')
+# plt.xlabel('Cidade')
+# plt.ylabel('Total Vendas')
+# plt.show()
+
+# Alterar a cor do gráfico
+# df['Cidade'].value_counts().plot.bar(
+#     title='Total Vendas por Cidade', color='gray')
+# plt.xlabel('Cidade')
+# plt.ylabel('Total Vendas')
+# plt.show()
+
+# alterar estilo dos graficos
+plt.style.use('ggplot')
+
+# grafico com valor total de venda por mes.
+df.groupby(df['Mes_venda'])['Qtde'].sum().plot(title='Total de Vendas por Mês')
+plt.xlabel('Mês')
+plt.ylabel('Total de Produtos Vendidos')
+plt.legend()
 plt.show()
 
-# https://web.dio.me/lab/analise-de-dados-com-python-e-pandas/learning/ce5be393-b336-4384-8983-f3550e23e8ac
-# parei no minuto 6:50h
+# somarização de vendas por mês
+print(df.groupby(df['Mes_venda'])['Qtde'].sum())
+
+# criação de df com dados das vendas do ano de 2019
+df_19 = df.loc[df['Ano_Venda'] == 2019]
+
+# somarização de vendas de 2019 por mês
+print(df_19.groupby(df_19['Mes_venda'])['Qtde'].sum())
+
+# gráfico com valor total de venda do ano de 2019 por mês.
+df_19.groupby(df_19['Mes_venda'])['Qtde'].sum().plot(
+    marker='o', title='Vendas por mês ano 2019')
+plt.xlabel('Mês Venda')
+plt.ylabel('Qtde de Vendas')
+plt.legend()
+plt.show()
+
+# gráfico de histrograma
+plt.hist(df['Qtde'], color='dimgray')
+plt.show()
+
+# gráfico de dispersão
+plt.scatter(x=df_19['Dia_venda'], y=df_19['Receita'])
+plt.show()
+
+# salvando as imagens em png
+nome_arquivo = 'grafico_dispersao.png'
+salvar_imagem = os.path.join(caminho, nome_arquivo)
+plt.scatter(x=df_19['Dia_venda'], y=df_19['Receita'])
+plt.savefig(salvar_imagem, dpi=300)
