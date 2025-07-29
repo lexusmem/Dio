@@ -98,8 +98,89 @@ print(lucro_ano)
 
 print('\n###### Total de produtos Vendidos ######')
 produtos_vendidos = df.groupby(
-    'Produto')['Quantidade'].sum().sort_values(ascending=True)
+    'Produto')['Quantidade'].sum().sort_values(ascending=False)
 print(produtos_vendidos)
 
-# https://web.dio.me/lab/analise-de-dados-com-python-e-pandas/learning/08483f26-f4aa-4b3b-a68f-c6109db6839a
-# parei em 16:23min
+print('\n###### Gráfico Total de produtos Vendidos ######')
+plot_total_product = df.groupby('Produto')['Quantidade'].sum().sort_values(
+    ascending=True).plot.barh(title='Total de Produtos Vendidos')
+plt.xlabel('Total')
+plt.ylabel('Produto')
+plt.show()
+
+print('\n###### Gráfico Total Lucro Por Ano ######')
+plt_lucro_ano = df.groupby(df['Data Venda'].dt.year)[
+    'Lucro'].sum().plot.bar(title='Lucro x Ano')
+plt.xlabel('Ano')
+plt.ylabel('Receita')
+plt.show()
+
+print('\n###### Total Lucro Por Ano ######')
+print(df.groupby(df['Data Venda'].dt.year)['Lucro'].sum())
+
+print('\n###### Vendas do Ano de 2009 ######')
+df_2009 = df[df['Data Venda'].dt.year == 2009]
+print(df_2009.head(10))
+
+
+print('\n###### Vendas por Meses de 2009 ######')
+print(df.groupby(df_2009['Data Venda'].dt.month)['Lucro'].sum())
+
+
+print('\n###### Gráfico Lucro x Mês 2009 ######')
+df_2009.groupby(df_2009['Data Venda'].dt.month)[
+    'Lucro'].sum().plot(title='Lucro x Mês 2009')
+plt.xlabel('Mês')
+plt.ylabel('Receita')
+plt.show()
+
+print('\n###### Lucro x Marca - 2009 ######')
+print(df_2009.groupby('Marca')['Lucro'].sum())
+
+
+print('\n###### Gráfico Lucro x Marca - 2009 ######')
+df_2009.groupby('Marca')['Lucro'].sum().plot.bar(title='Lucro x Marca 2009')
+plt.xlabel('Marca')
+plt.ylabel('Receita')
+plt.show()
+
+print('\n###### Lucro x Classe - 2009 ######')
+print(df[df['Data Venda'].dt.year == 2009].groupby('Classe')['Lucro'].sum())
+print(df_2009.groupby('Classe')['Lucro'].sum())
+
+
+print('\n###### Gráfico Lucro x Classe - 2009 ######')
+df_2009.groupby('Classe')['Lucro'].sum().plot.bar(
+    title='Lucro x Classe - 2009')
+plt.xlabel('Classe')
+plt.ylabel('Receita')
+plt.xticks(rotation='horizontal')
+plt.show()
+
+print('\n###### Classe Describe - Tempo de Envio ######')
+print(df['Tempo de Envio'].describe())
+
+print('\n###### Gráfico de Boxplort - Tempo de Envio ######')
+plt.boxplot(df['Tempo de Envio'])
+plt.show()
+
+print('\n###### Gráfico de Histograma - Tempo de Envio ######')
+plt.hist(df['Tempo de Envio'])
+plt.show()
+
+print('\n###### Tempo Mínimo de Envio ######')
+print(df['Tempo de Envio'].min())
+
+print('\n###### Tempo Máximo de Envio ######')
+print(df['Tempo de Envio'].max())
+
+print('\n###### Identificar Outlier ######')
+print(df[df['Tempo de Envio'] == 20])
+
+print('\n###### Identificar Mínimo ######')
+print(df[df['Tempo de Envio'] == 4])
+
+print('\n###### Salvar Arquivo ######')
+arq_salvo = os.path.join(caminho, 'df_vendas_novo_df.csv')
+df.to_csv(arq_salvo, index=False)
+print('Arquivo Criado e Salvo!')
